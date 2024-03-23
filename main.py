@@ -2,27 +2,9 @@ import cv2
 import os
 from cvzone.ClassificationModule import Classifier
 import cvzone
-from flask import Flask, render_template_string, Response
+from flask import Flask, render_template, Response
 
 app = Flask(__name__)
-
-# Define HTML template
-html_template = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Computer Vision Output</title> 
-</head>
-<body>
-    <h1>Computer Vision Output</h1>
-    <div>
-        <img src="{{ video_source }}" width="640" height="480">
-    </div>
-</body>
-</html>
-"""
 
 # Initialize video capture
 cap = cv2.VideoCapture(0)  # Use camera index 0 (default camera)
@@ -86,7 +68,7 @@ def gen_frames():
 @app.route('/')
 def index():
     # Render HTML template
-    return render_template_string(html_template, video_source="/video_feed")
+    return render_template('index.html')
 
 @app.route('/video_feed')
 def video_feed():
